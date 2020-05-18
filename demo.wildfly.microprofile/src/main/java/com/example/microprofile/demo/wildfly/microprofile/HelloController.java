@@ -1,5 +1,6 @@
 package com.example.microprofile.demo.wildfly.microprofile;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -8,7 +9,7 @@ import javax.ws.rs.Path;
  *
  */
 @Path("/hello")
-@Singleton
+@ApplicationScoped
 public class HelloController {
 
     @GET
