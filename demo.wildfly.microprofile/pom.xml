@@ -8,7 +8,7 @@
   <packaging>war</packaging>
   <properties>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <version.wildfly>19.0.0.Final</version.wildfly>
+    <!--version.wildfly>19.0.0.Final</version.wildfly-->
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <maven.compiler.source>1.8</maven.compiler.source>
     <final.name>demo.wildfly.microprofile</final.name>
@@ -27,31 +27,29 @@
   </build>
   <profiles>
     <profile>
-      <id>wildfly</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
+      <id>openshift</id>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.wildfly.plugins</groupId>
-            <artifactId>wildfly-jar-maven-plugin</artifactId>
-            <version>1.0.0.Alpha4</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>package</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <feature-pack-location>wildfly@maven(org.jboss.universe:community-universe)#${version.wildfly}</feature-pack-location>
-              <layers>
-                <layer>jaxrs</layer>
-              </layers>
-            </configuration>
-          </plugin>
-        </plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-war-plugin</artifactId>
+                  <version>2.3</version>
+                  <configuration>
+                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                     <outputDirectory>target</outputDirectory>
+                     <warName>ROOT</warName>
+                  </configuration>
+               </plugin>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-ejb-plugin</artifactId>
+                  <version>2.3</version>
+                  <configuration>
+                     <ejbVersion>3.1</ejbVersion>
+                     <generateClient>true</generateClient>
+                  </configuration>
+               </plugin>
+            </plugins>
       </build>
       <dependencies>
         <dependency>
